@@ -3,7 +3,7 @@
 **Author**: Mutiara Acintyacitra Nirmala 
 **NIM**: A12.2023.07059
 **Kelompok**: PWL 6402
-**Tanggal Pengumpulan**: Selasa, 2 Juli 2025
+**Tanggal Pengumpulan**: Rabu, 2 Juli 2025
 
 ## Deskripsi
 Proyek ini adalah contoh sederhana implementasi REST API menggunakan PHP dan MySQL tanpa framework. Fitur yang disediakan:
