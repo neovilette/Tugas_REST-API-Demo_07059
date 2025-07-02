@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!-- Nama   : Mutiara Acintyacitra Nirmala -->
+<!-- NIM    : A12.2023.07059 -->
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku API - REST API Demo</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <style>
+        /* Gradien hijau & shadow */
+        .navbar-gradient-success {
+            background: linear-gradient(90deg, #28a745, #218838);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background 0.3s ease;
+        }
+
+        /* Brand lebih menonjol */
+        .navbar-gradient-success .navbar-brand {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        /* Animasi hover pada link */
+        .navbar-gradient-success .nav-link {
+            position: relative;
+            transition: color 0.25s ease-in-out;
+        }
+
+        .navbar-gradient-success .nav-link:hover {
+            color: #ffc107;
+            /* kuning amber */
+        }
+
+        /* Underline untuk link aktif */
+        .navbar-gradient-success .nav-link.active::after {
+            content: "";
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: #ffc107;
+            bottom: -6px;
+            left: 0;
+            border-radius: 2px;
+        }
+    </style>
+
+    <!-- Ganti navbar-mu menjadi begini -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-gradient-success">
+        <div class="container d-flex align-items-center">
+            <!-- Tombol Kembali langsung ke index1.html -->
+            <button class="btn btn-light me-3" onclick="window.location.href='index1.html'">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </button>
+            <!-- Teks Brand (bukan link) -->
+            <span class="navbar-brand mb-0 h1">
+                REST API Demo
+            </span>
+            <!-- Toggler untuk mobile -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Menu Nav -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="mahasiswa.html">Mahasiswa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="buku.html">Buku</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <header class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-success">Manajemen Data Buku</h1>
+            <p class="lead">CRUD Operations dengan REST API</p>
+        </header>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Tambah Buku Baru</h5>
+                        <button type="button" class="btn btn-light btn-sm" id="toggleForm">
+                            <i class="fas fa-plus-circle"></i> Form
+                        </button>
+                    </div>
+                    <div class="card-body" id="formSection" style="display:none;">
+                        <form id="bukuForm">
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label for="bukuId" class="form-label">ID</label>
+                                    <input type="number" class="form-control" id="bukuId"
+                                        placeholder="Auto (Kosongkan untuk baru)">
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="judul" class="form-label">Judul</label>
+                                    <input type="text" class="form-control" id="judul" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="penulis" class="form-label">Penulis</label>
+                                    <input type="text" class="form-control" id="penulis" required>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
+                                    <input type="number" class="form-control" id="tahun_terbit" min="1900" max="2099"
+                                        step="1" required>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-secondary me-2" id="resetForm">Reset</button>
+                                <button type="submit" class="btn btn-success" id="submitBtn">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Daftar Buku</h5>
+                        <div class="d-flex">
+                            <div class="input-group me-2" style="width: 250px;">
+                                <input type="text" class="form-control" id="searchInput" placeholder="Cari buku...">
+                                <button class="btn btn-light" type="button" id="searchBtn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <button class="btn btn-light" id="refreshBtn">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Judul</th>
+                                        <th>Penulis</th>
+                                        <th>Tahun Terbit</th>
+                                        <th class="text-center">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bukuTableBody">
+                                    <!-- Data akan diisi melalui JavaScript -->
+                                    <tr>
+                                        <td colspan="5" class="text-center">Memuat data...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="d-flex justify-content-between align-items-center mt-3" id="pagination-container">
+                            <button class="btn btn-sm btn-outline-success" id="prevPageBtn" disabled>
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <div class="btn-group" id="pageNumbers">
+                                <!-- Page numbers will be added here dynamically -->
+                            </div>
+                            <button class="btn btn-sm btn-outline-success" id="nextPageBtn">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Konfirmasi Hapus</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus data buku ini?</p>
+                    <p class="fw-bold" id="deleteModalText"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Hapus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifikasi -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header" id="toastHeader">
+                <strong class="me-auto" id="toastTitle">Notifikasi</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body" id="toastMessage">
+                Pesan notifikasi akan muncul di sini.
+            </div>
+        </div>
+    </div>
+    <footer class="text-center py-4 mt-4 text-muted border-top">
+        <p>&copy; 2025 REST API Demo - Mutiara Acintyacitra Nirmala - A12.2023.07059</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/buku.js"></script>
+</body>
+
+</html>

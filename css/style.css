@@ -1,0 +1,116 @@
+/* Nama : Mutiara Acintyacitra Nirmala */
+/* NIM  : A12.2023.07059 */
+css
+
+/* General Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card Hover Effect */
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Custom Navbar and Brand */
+.navbar-brand {
+    font-weight: 600;
+}
+
+.navbar-brand i {
+    margin-right: 8px;
+}
+
+/* Form Styles */
+label {
+    font-weight: 500;
+}
+
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Table Styles */
+.table th {
+    font-weight: 600;
+    background-color: #f2f2f2;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Action Buttons */
+.btn-action {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 50%;
+    margin: 0 3px;
+}
+
+/* Toast Notification */
+.toast {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+.bg-success-light {
+    background-color: #d1e7dd;
+}
+
+.bg-danger-light {
+    background-color: #f8d7da;
+}
+
+.bg-warning-light {
+    background-color: #fff3cd;
+}
+
+.bg-info-light {
+    background-color: #cff4fc;
+}
+
+/* Code Block in Documentation */
+pre {
+    background-color: #f7f7f7;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+/* Badge Styles */
+.badge {
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    padding-top: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+
+    .table-responsive {
+        border: none;
+    }
+}
+
